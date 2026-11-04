@@ -1,10 +1,20 @@
-import { STORE } from "./data/store"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout";
+import Shop from "./pages/Shop";
+import Home from "./pages/Home";
+import About from "./pages/About";
 
 export default function App() {
-  return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-sand">
-      <h1 className="text-4xl font-bold text-brand">{STORE.name}</h1>
-      <p className="mt-2 text-accent">{STORE.tagline}</p>
-    </div>
+  return(
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/about" element={<About />} />
+          <Route path="*" element={<Home />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
