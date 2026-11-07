@@ -2,7 +2,7 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-import productRoutes from "./routes/productRoutes.js"
+import productRoutes from "./routes/ProductRoutes.js"
 
 const app = express();
 

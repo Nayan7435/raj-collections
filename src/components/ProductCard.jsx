@@ -4,7 +4,7 @@ export default function ProductCard({ product }) {
     const off = Math.round(((product.mrp - product.price) / product.mrp) * 100)
 
     return(
-        <Link to={`/product/${product.id}`} className="group block">
+        <Link to={`/product/${product._id}`} className="group block">
             <div className="overflow-hidden rounded-2xl bg-stone-200">
                 <img
                     src={product.image}

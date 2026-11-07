@@ -16,7 +16,7 @@ export function CartProvider({ children }) {
   }, [items]);
 
   const addToCart = (product, size) => {
-    const key = `${product.id}-${size}`;
+    const key = `${product._id}-${size}`;
 
     setItems((prev) => {
       const found = prev.find((i) => i.key === key);
@@ -29,7 +29,7 @@ export function CartProvider({ children }) {
         ...prev,
         {
           key,
-          id: product.id,
+          id: product._id,
           name: product.name,
           price: product.price,
           image: product.image,
