@@ -23,7 +23,7 @@ export default function Home() {
         <div className="mb-6 flex items-end justify-between">
           <h2 className="text-2xl font-bold text-brand">Trending</h2>
           <Link to="/shop" className="text-sm underline">
-            Sab dekho
+            See All
           </Link>
         </div>
 

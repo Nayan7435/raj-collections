@@ -1,9 +1,11 @@
 import { Link,  useParams } from "react-router-dom";
 import { PRODUCTS } from "../data/products";
 import { useState } from "react";
+import { useCart } from "../context/cartContext";
 
 export default function Product() {
-  const { id } = useParams();
+  const { id } = useParams()
+  const { addToCart } = useCart()
   const product = PRODUCTS.find((p) => p.id === Number(id));
 
   const [size, setSize] = useState(null);
@@ -28,7 +30,7 @@ export default function Product() {
       return;
     }
     setError(false);
-    alert(`${product.name} (${size}) - cart Din 5 me jodenge`);
+    addToCart(product, size)
   }
 
   return (

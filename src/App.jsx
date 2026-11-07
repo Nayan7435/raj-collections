@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { CartProvider } from "./context/cartContext";
+import Cart from "./pages/Cart"
 import Layout from "./components/Layout";
 import Shop from "./pages/Shop";
 import Home from "./pages/Home";
@@ -8,15 +10,18 @@ import Product from "./pages/Product";
 export default function App() {
   return(
     <BrowserRouter>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/product/:id" element={<Product />}/>
-          <Route path="/about" element={<About />} />
-          <Route path="*" element={<Home />} />
-        </Route>
-      </Routes>
+      <CartProvider>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/product/:id" element={<Product />}/>
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/about" element={<About />} />
+            <Route path="*" element={<Home />} />
+          </Route>
+        </Routes>
+      </CartProvider>
     </BrowserRouter>
   )
 }
