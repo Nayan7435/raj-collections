@@ -17,22 +17,25 @@ export default function Product() {
           Go Back To Shop
         </Link>
       </div>
-    );
+    )
   }
 
   const off = Math.round(((product.mrp - product.price) / product.mrp) * 100);
 
-  const handledAdd = () => {
+  const handleAdd = () => {
     if (!size) {
       setError(true);
       return;
     }
     setError(false);
     alert(`${product.name} (${size}) - cart Din 5 me jodenge`);
-  };
+  }
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-10">
+        <Link to="/shop" className="text-sm text-stone-600 hover:text-accent">
+            ← Shop
+        </Link>
       <div className="grid gap-10 md:grid-cols-2">
         <img
           src={product.image}
@@ -72,12 +75,15 @@ export default function Product() {
               </button>
             ))}
           </div>
+          {size && (
+            <p className="mt-3 text-sm text-stone-600">Selected size: {size}</p>
+          )}
           {error && (
             <p className="mt-2 text-sm text-accent">Select Size First</p>
           )}
 
           <button
-            onClick={handledAdd}
+            onClick={handleAdd}
             className="mt-8 rounded-full bg-brand px-12 py-3 font-medium text-white hover:opacity-90"
           >
             Add to Cart
