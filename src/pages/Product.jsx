@@ -1,40 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getProduct } from "../api";
+import useProduct from "../hooks/useProduct";
 import { useCart } from "../context/CartContext";
 
 export default function Product() {
   const { id } = useParams();
   const { addToCart } = useCart();
-
-  const [product, setProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [fetchError, setFetchError] = useState(false);
+  const { product, loading, error: fetchError } = useProduct(id);
 
   const [size, setSize] = useState(null);
   const [error, setError] = useState(false);
   const [added, setAdded] = useState(false);
-
-  useEffect(() => {
-    let ignore = false;
-    setLoading(true);
-    setFetchError(false);
-
-    getProduct(id)
-      .then((data) => {
-        if (!ignore) setProduct(data);
-      })
-      .catch(() => {
-        if (!ignore) setFetchError(true);
-      })
-      .finally(() => {
-        if (!ignore) setLoading(false);
-      });
-
-    return () => {
-      ignore = true;
-    };
-  }, [id]);
 
   if (loading) {
     return <p className="py-24 text-center text-stone-500">Loading...</p>;
@@ -43,7 +19,7 @@ export default function Product() {
   if (fetchError) {
     return (
       <p className="py-24 text-center text-accent">
-        Server is Disconnected! Try after later
+        Server se connect nahi ho paya. Thodi der baad try karo.
       </p>
     );
   }
@@ -82,7 +58,7 @@ export default function Product() {
         <img
           src={product.image}
           alt={product.name}
-          className="aspect-[3/4] w-full rounded-3xl object-cover"
+          className="aspect-3/4 w-full rounded-3xl object-cover"
         />
 
         <div>
