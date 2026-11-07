@@ -5,6 +5,12 @@ import { useCart } from "../context/cartContext";
 export default function Cart() {
   const { items, subtotal, updateQty, removeItem, clearCart } = useCart();
 
+  const handleClear = () => {
+    if (window.confirm("Are you sure you want to empty the cart?")) {
+      clearCart();
+    }
+  };
+
   if (items.length === 0) {
     return (
       <div className="py-24 text-center">
@@ -25,10 +31,10 @@ export default function Cart() {
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-bold text-brand">Your Cart</h1>
           <button
-            onClick={clearCart}
+            onClick={handleClear}
             className="text-sm text-stone-500 underline"
           >
-            Remove all from the cart
+            Remove all items from the cart
           </button>
         </div>
 
@@ -58,8 +64,9 @@ export default function Cart() {
                     <span className="w-6 text-center text-sm">{i.qty}</span>
                     <button
                       onClick={() => updateQty(i.key, i.qty + 1)}
-                      className="px-3 py-1"
-                      aria-label="Quantity badhao"
+                      disabled={i.qty >= 10}
+                      className="px-3 py-1 disabled:cursor-not-allowed disabled:opacity-40"
+                      aria-label="Increase Quantity"
                     >
                       +
                     </button>
