@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import { STORE } from "../data/store";
-import { useCart } from "../context/cartContext";
+import { useCart } from "../context/CartContext";
 
 const linkClass = ({ isActive }) =>
   isActive ? "font-semibold text-accent" : "hover:text-accent";

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { STORE } from "../data/store";
-import { useCart } from "../context/cartContext";
+import { useCart } from "../context/CartContext";
 
 export default function Cart() {
   const { items, subtotal, updateQty, removeItem, clearCart } = useCart();
