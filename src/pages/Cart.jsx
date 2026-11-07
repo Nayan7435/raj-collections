@@ -1,15 +1,17 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../context/cartContext";
 
+const FREE_SHIPPING = 999;
+
 export default function Cart() {
   const { items, subtotal } = useCart();
 
   if (items.length === 0) {
     return (
       <div className="py-24 text-center">
-        <p>Cart abhi khaali hai.</p>
+        <p>Cart is Empty.</p>
         <Link to="/shop" className="mt-4 inline-block underline">
-          Shopping karo
+          Shopping Here
         </Link>
       </div>
     );
@@ -40,6 +42,12 @@ export default function Cart() {
 
       <p className="mt-6 text-right text-xl font-semibold">
         Subtotal: ₹{subtotal}
+      </p>
+
+      <p className="mt-2 text-right text-sm text-stone-600">
+        {subtotal < FREE_SHIPPING
+          ? `Add ₹${FREE_SHIPPING - subtotal} More to Get Free Shipping`
+          : "Congratulations You Got Free Shipping 🎉"}
       </p>
     </section>
   );

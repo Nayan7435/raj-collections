@@ -1,25 +1,26 @@
-import { Link,  useParams } from "react-router-dom";
-import { PRODUCTS } from "../data/products";
 import { useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { PRODUCTS } from "../data/products";
 import { useCart } from "../context/cartContext";
 
 export default function Product() {
-  const { id } = useParams()
-  const { addToCart } = useCart()
+  const { id } = useParams();
+  const { addToCart } = useCart();
   const product = PRODUCTS.find((p) => p.id === Number(id));
 
   const [size, setSize] = useState(null);
   const [error, setError] = useState(false);
+  const [added, setAdded] = useState(false);
 
   if (!product) {
     return (
       <div className="py-24 text-center">
-        <p>Product Not Found</p>
+        <p>Product nahi mila.</p>
         <Link to="/shop" className="mt-4 inline-block underline">
-          Go Back To Shop
+          Shop par wapas jao
         </Link>
       </div>
-    )
+    );
   }
 
   const off = Math.round(((product.mrp - product.price) / product.mrp) * 100);
@@ -30,15 +31,18 @@ export default function Product() {
       return;
     }
     setError(false);
-    addToCart(product, size)
-  }
+    addToCart(product, size);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
+  };
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-10">
-        <Link to="/shop" className="text-sm text-stone-600 hover:text-accent">
-            ← Shop
-        </Link>
-      <div className="grid gap-10 md:grid-cols-2">
+      <Link to="/shop" className="text-sm text-stone-600 hover:text-accent">
+        ← Shop
+      </Link>
+
+      <div className="mt-6 grid gap-10 md:grid-cols-2">
         <img
           src={product.image}
           alt={product.name}
@@ -50,6 +54,7 @@ export default function Product() {
             {product.category}
           </p>
           <h1 className="mt-2 text-3xl font-bold text-brand">{product.name}</h1>
+
           <p className="mt-4 text-2xl font-semibold">
             ₹{product.price}{" "}
             <span className="text-base font-normal text-stone-400 line-through">
@@ -58,7 +63,7 @@ export default function Product() {
             <span className="text-base text-green-700">{off}% off</span>
           </p>
 
-          <p className="mt-6 text-sm font-medium">Select Size</p>
+          <p className="mt-6 text-sm font-medium">Size chuno</p>
           <div className="mt-2 flex flex-wrap gap-2">
             {product.sizes.map((s) => (
               <button
@@ -67,21 +72,22 @@ export default function Product() {
                   setSize(s);
                   setError(false);
                 }}
-                className="{`min-w-12 rounded-lg border px-3 py-2 text-sm ${
+                className={`min-w-12 rounded-lg border px-3 py-2 text-sm ${
                   size === s
-                    ? 'border-brand bg-brand text-white'
-                    : 'bg-white hover:border-brand'
-                }`}"
+                    ? "border-brand bg-brand text-white"
+                    : "bg-white hover:border-brand"
+                }`}
               >
                 {s}
               </button>
             ))}
           </div>
+
           {size && (
             <p className="mt-3 text-sm text-stone-600">Selected size: {size}</p>
           )}
           {error && (
-            <p className="mt-2 text-sm text-accent">Select Size First</p>
+            <p className="mt-2 text-sm text-accent">Pehle size select karo.</p>
           )}
 
           <button
@@ -90,6 +96,10 @@ export default function Product() {
           >
             Add to Cart
           </button>
+
+          {added && (
+            <p className="mt-3 text-sm text-green-700">Added to Cart ✓</p>
+          )}
         </div>
       </div>
     </section>
